@@ -10,7 +10,7 @@ import Footer from "./components/footer";
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
 import NewBook from "./components/books/newBook";
-import PrimarySearchAppBar from "./components/appBar";
+import Appbar from "./components/appBar";
 import Cart from "./components/cart/cart";
 import Stripe from "./components/stripe/stripe";
 import { ToastContainer, toast } from "react-toastify";
@@ -37,7 +37,7 @@ function App() {
       </ul> */}
       <Router>
         <ToastContainer />
-        <PrimarySearchAppBar />
+        <Appbar />
 
         <Switch>
           <Route path="/admin-dashboard" component={AdminDashboard} exact />

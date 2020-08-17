@@ -17,6 +17,9 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import { Link, Redirect } from "react-router-dom";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import userService from "../services/UserService";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -84,10 +87,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PrimarySearchAppBar = (props) => {
+const Appbar = (props) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+  const [cartItemLength, setCartItemLength] = React.useState(
+    cookies.get("cart") ? cookies.get("cart").length() : 0
+  );
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -217,9 +224,9 @@ const PrimarySearchAppBar = (props) => {
             )}
 
             <MenuItem>
-              <IconButton aria-label="show 4 new mails">
+              <IconButton aria-label="show new mails">
                 <Link to="/cart">
-                  <Badge badgeContent={4} color="secondary">
+                  <Badge badgeContent={cartItemLength} color="secondary">
                     <ShoppingCartIcon />
                   </Badge>
                 </Link>
@@ -245,4 +252,4 @@ const PrimarySearchAppBar = (props) => {
   );
 };
 
-export default PrimarySearchAppBar;
+export default Appbar;
