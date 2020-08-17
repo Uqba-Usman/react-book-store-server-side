@@ -1,0 +1,98 @@
+Tables:
+->	User		*First name, Last name, Password, 'E-mail'
+
+->	Book		*Tittle, Author, 'ISBN', Edition, Category, Price, Publisher
+
+->	Author		 AuthorId ,AuthorName, isbn
+
+->	Book Data	*'fileID', fileMimeType, fileName
+
+->	Payment		*'E-mail', CardType, totalPayment
+
+->	Address		*Country, City, Postal Code, email
+
+->	Admin		*Name, Password, 'E-mail'
+
+->	Favourites	UserEmail, Author, Category, Publisher, Id
+Time, book, user, cardtype
+
+
+
+References
+Book-BookData
+Favourites-Book
+Author-Book
+Address-User
+
+
+
+Table->User
+Attribute type length constraint
+
+FirstName		CharacterType		Variable Length		not null
+LastName		Cha			Var			notn
+Email			Char			Var			Not Null, Primary Key
+Password		Char			Var			notn
+
+
+Table->Book
+
+BTitle			Char			Var			Notn
+Author			Char			Var			Notn
+ISBN			Char			Var			Notn, Pkey
+Edition			Char			Var			NotN
+Category		Char			Var			Notn
+Price			int			Unsigned		Notn
+Publisher		Char			Var			
+				
+Table->Author
+
+AuthorId		int 			Unsigned, Autoincrement	NotNull, Pkey
+AuthorName		Char			Var			NotNull
+isbn			Char			Var			Notnul
+
+Table->BookData		
+
+fileID			CharType		Var			Notn, Pkey
+fileMimeType		CharType		Var			Notn
+fileName		CharType		Var			Notn
+ISBN			int			Unsigned		FKey, referenced from the table "Book"
+
+
+Table->Payment
+
+E-mail			CharType		Var			NotN, Pkey
+CardType		CharType		Var			NotN
+TotalPayment		Int			Unsigned		NotNull
+
+
+Table->Adress
+
+Country			Char			Var			NotN
+City			Char			Var			
+PostalCode		int			Fixed			NotNull
+Email			Char			Var      		NotNull, Fkey,  referenced from the table "User"
+
+
+
+Table->Admin
+
+FirstName		CharacterType		Variable Length		not null
+LastName		Cha			Var			notn
+Email			Char			Var			Not Null, PKey
+Password		Char			Var			notn
+
+
+Table->Favourites
+
+UserEmail		Char			Var			NotN,Pkey			
+Author			Char			Var			Fkey, referenced from the table "Book"
+Publisher		Char			Var			Fkey, referenced from the table "Book"
+Category		Char			Var			Fkey, referenced from the table "Book"
+
+
+
+
+
+
+

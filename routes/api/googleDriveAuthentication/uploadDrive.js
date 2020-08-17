@@ -20,7 +20,7 @@ const uploadFilePromise = (files, to_uploadDir) =>
         file_name = files.file.name;
         file_ext = files.file.type;
         fs.rename(oldpath, newpath, function (err) {
-          if (err) throw err;
+          if (err) console.log(err);
           console.log("One file uploaded");
           return;
         });
@@ -56,7 +56,6 @@ const uploadFilePromise = (files, to_uploadDir) =>
               if (err) {
                 console.error(err);
               } else {
-                console.log("FILE: ", file);
                 console.log(`file Id:${file.data.id}`);
                 // file_Id = file.data.id;
                 fileData = {
