@@ -32,7 +32,7 @@ app.use("/api/books", booksRouter);
 app.use("/api/stripe", stripeRouter);
 
 app.get("/", (req, res) => {
-  app.send("Uqba Usman");
+  res.send("Uqba Usman");
 });
 
 // catch 404 and forward to error handler
