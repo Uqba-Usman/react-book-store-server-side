@@ -21,12 +21,12 @@ import axios from "axios";
 
 function App() {
   const [products, setProducts] = React.useState([]);
-  React.useEffect(() =>
+  React.useEffect(() => {
     axios
       .get("/api/products")
       .then((res) => setProducts(res.data))
-      .catch((err) => console.log(err))
-  );
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div className="App">
