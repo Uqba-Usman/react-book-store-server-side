@@ -31,6 +31,10 @@ app.use("/api/users", usersRouter);
 app.use("/api/books", booksRouter);
 app.use("/api/stripe", stripeRouter);
 
+app.get("/", (req, res) => {
+  app.send("Uqba Usman");
+});
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
