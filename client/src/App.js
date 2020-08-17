@@ -30,12 +30,12 @@ function App() {
 
   return (
     <div className="App">
-      <ul>
+      {/* <ul>
         {products.map((p, index) => (
           <li key={index}>{p}</li>
         ))}
-      </ul>
-      {/* <Router>
+      </ul> */}
+      <Router>
         <ToastContainer />
         <PrimarySearchAppBar />
 
@@ -52,7 +52,6 @@ function App() {
         </Switch>
         <Footer />
       </Router>
-    */}
     </div>
   );
 }
