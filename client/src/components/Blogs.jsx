@@ -27,13 +27,16 @@ const Blogs = () => {
   //   }
   // };
   // React.useEffect(() => getData(), []);
-  // React.useEffect(() => {
-  //   bookService
-  //     .getBooks()
-  //     .then((res) => setBooks(res))
-  //     .catch((err) => console.log(err));
-
-  // }, []);
+  React.useEffect(() => {
+    bookService
+      .getBooks()
+      .then((res) => setBooks(res))
+      .catch((err) => console.log(err));
+    // axios
+    //   .get("http://localhost:4500/api/books")
+    //   .then((res) => setBooks(res))
+    //   .catch((err) => console.log("Error", err));
+  }, []);
 
   return (
     <section>

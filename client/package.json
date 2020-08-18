@@ -19,6 +19,7 @@
     "bootstrap": "^4.4.1",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.20",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-cookie": "^4.0.3",

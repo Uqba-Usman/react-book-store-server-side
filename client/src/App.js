@@ -20,13 +20,13 @@ import AdminDashboard from "./components/adminTable/adminDashboard";
 import axios from "axios";
 
 function App() {
-  const [products, setProducts] = React.useState([]);
-  React.useEffect(() => {
-    axios
-      .get("/api/products")
-      .then((res) => setProducts(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+  // const [products, setProducts] = React.useState([]);
+  // React.useEffect(() => {
+  //   axios
+  //     .get("/api/products")
+  //     .then((res) => setProducts(res.data))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   return (
     <div className="App">

@@ -30,6 +30,7 @@ const CartProduct = ({ book }) => {
 
   const handleDelete = () => {
     const cookieData = cookies.get("cart");
+    console.log("CD", cookieData);
     const index = cookieData.findIndex((c) => c._id === book._id);
     cookieData.splice(index, 1);
     cookies.set("cart", cookieData);

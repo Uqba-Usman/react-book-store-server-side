@@ -93,7 +93,7 @@ const Appbar = (props) => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const [cartItemLength, setCartItemLength] = React.useState(
-    cookies.get("cart") ? cookies.get("cart").length() : 0
+    cookies.get("cart") ? cookies.get("cart").length : 0
   );
 
   const isMenuOpen = Boolean(anchorEl);

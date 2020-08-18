@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 
 const SingleBook = ({ book }) => {
   return (
-    <Grid item xs={3}>
+    <div className="col-lg-3 col-md-3 col-sm-6">
       <div className="grid-item">
         <div className="product">
           <div className="product-image">
@@ -52,7 +52,7 @@ const SingleBook = ({ book }) => {
           </div>
         </div>
       </div>
-    </Grid>
+    </div>
   );
 };
 
