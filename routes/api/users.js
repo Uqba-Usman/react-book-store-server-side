@@ -38,8 +38,8 @@ router.post("/register", async (req, res, next) => {
   console.log(req.body);
 
   try {
-    const databse = newConn();
-    databse.query(
+    const database = newConn();
+    database.query(
       "SELECT * FROM users WHERE email = ?",
       req.body.email,
       (err, res_Email) => {
@@ -55,8 +55,8 @@ router.post("/register", async (req, res, next) => {
             email: req.body.email,
             password: req.body.password,
           };
-          const databse = newConn();
-          databse.query(sql, post, (err, result) => {
+          const database = newConn();
+          database.query(sql, post, (err, result) => {
             if (err) return err;
             console.log(result);
             let token = jwt.sign(
@@ -104,8 +104,8 @@ router.post("/register", async (req, res, next) => {
 // });
 router.post("/login", (req, res) => {
   let sql = "SELECT * FROM users where email = ?";
-  const databse = newConn();
-  databse.query(sql, req.body.email, (err, result) => {
+  const database = newConn();
+  database.query(sql, req.body.email, (err, result) => {
     if (err) return console.log("DATA GETTING ERROR", err);
     console.log(result);
     if (result.length != 0) {

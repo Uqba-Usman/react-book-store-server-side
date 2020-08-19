@@ -21,8 +21,9 @@ const newConn = require("../../connection/db");
 
 router.get("/", async (req, res) => {
   let sql = "SELECT * FROM book";
-  const databse = newConn();
-  databse.query(sql, (err, books) => {
+
+  const database = newConn();
+  database.query(sql, (err, books) => {
     if (err) console.log(error);
     console.log("BOOKS", books);
     res.send(books);
@@ -44,8 +45,9 @@ router.get("/", async (req, res) => {
 // });
 router.get("/:id", async (req, res) => {
   let sql = "SELECT * FROM book WHERE ISBN = ?";
-  const databse = newConn();
-  databse.query(sql, req.params.id, (err, book) => {
+
+  const database = newConn();
+  database.query(sql, req.params.id, (err, book) => {
     if (err) console.log(error);
     console.log("BOOK", book[0]);
     res.send(book[0]);
@@ -93,7 +95,7 @@ router.post("/", async (req, res) => {
     try {
       file = await uploadFilePromise(files, to_uploadDir);
     } catch (err) {
-      console.log("Uploading Failed", err);
+      return console.log("Uploading Failed", err);
     }
     try {
       let sql_book = "INSERT INTO book SET ?";
@@ -106,9 +108,9 @@ router.post("/", async (req, res) => {
         publisher: fields.publisher,
         price: fields.price,
       };
-      const databse = newConn();
-      databse.query(sql_book, data, (err, result_book) => {
-        if (err) console.log(err);
+      const database = newConn();
+      database.query(sql_book, data, (err, result_book) => {
+        if (err) return console.log(err);
         console.log("BOOK RESULT", result_book);
         console.log("FILE", file);
         try {
@@ -119,14 +121,15 @@ router.post("/", async (req, res) => {
             fileName: file.fileName,
             bookData_isbn: fields.isbn,
           };
-          const databse = newConn();
-          databse.query(
+
+          const database = newConn();
+          database.query(
             sql_book_file,
             data_book_file,
             (err, result_book_file) => {
-              if (err) console.log(err);
+              if (err) return console.log(err);
               console.log("BOOK DATA RESULT", result_book_file);
-              res.status(200).send("SUCCESS");
+              return res.status(200).send("SUCCESS");
             }
           );
         } catch (error) {
@@ -163,8 +166,8 @@ router.put("/:id", (req, res) => {
     price: req.body.price,
   };
   let sql = `UPDATE book SET ? WHERE isbn = ${req.params.id}`;
-  const databse = newConn();
-  databse.query(sql, data, (err, result) => {
+  const database = newConn();
+  database.query(sql, data, (err, result) => {
     if (err) console.log(err);
     console.log("UPDATED RESULT", result);
     res.status(200).send(result);
@@ -179,8 +182,8 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   let sql = `DELETE FROM book where isbn = ${req.params.id}`;
-  const databse = newConn();
-  databse.query(sql, (err, result) => {
+  const database = newConn();
+  database.query(sql, (err, result) => {
     if (err) console.log("DELETION ERROR", err);
     console.log("RESULT", result);
     res.send(result);
