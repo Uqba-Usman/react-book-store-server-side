@@ -63,7 +63,7 @@ const Cart = () => {
                         <strong>Cart Subtotal</strong>
                       </td>
                       <td className="cart-product-name text-right">
-                        <span className="amount">{`Rs. ${calculateTotal()}`}</span>
+                        <span className="amount">{`${calculateTotal()}$`}</span>
                       </td>
                     </tr>
 
@@ -73,7 +73,7 @@ const Cart = () => {
                       </td>
                       <td className="cart-product-name text-right">
                         <span className="amount color lead">
-                          <strong>{`Rs. ${calculateTotal()}`}</strong>
+                          <strong>{`${calculateTotal()}$`}</strong>
                         </span>
                       </td>
                     </tr>

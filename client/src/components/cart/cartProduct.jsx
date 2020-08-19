@@ -56,12 +56,12 @@ const CartProduct = ({ book }) => {
         </p>
       </td>
       <td className="cart-product-price">
-        <span className="amount">{`Rs. ${book.price}`}</span>
+        <span className="amount">{`${book.price}$`}</span>
       </td>
       <td className="cart-product-subtotal">
-        <span className="amount">{`Rs. ${
+        <span className="amount">{`${
           Number(book.price) * book.quantity
-        }`}</span>
+        }$`}</span>
       </td>
     </tr>
   );

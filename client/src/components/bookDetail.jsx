@@ -101,7 +101,7 @@ const BookDetail = (props) => {
                       </h3>
                     </div>
                     <div className="product-price">
-                      <ins>{`Rs.${book.price}`}</ins>
+                      <ins>{`${book.price}$`}</ins>
                     </div>
                     <div className="product-rate">
                       <i className="fa fa-star"></i>
