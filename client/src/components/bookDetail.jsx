@@ -27,7 +27,7 @@ const BookDetail = (props) => {
     bookService
       .getSingleBook(props.match.params.id)
       .then((res) => {
-        setBook(res.data);
+        setBook(res);
         console.log(book);
       })
       .catch((err) => {

@@ -195,7 +195,7 @@ const NewBook = (props) => {
               <div className="row">
                 <div className="col-lg-12 form-group">
                   <button type="submit" className="btn">
-                    Register New Account
+                    Upload
                   </button>
                   <Link to="/" className="btn btn-danger m-l-10">
                     Cancel

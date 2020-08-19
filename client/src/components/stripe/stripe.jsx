@@ -1,6 +1,7 @@
 import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
+import stripeService from "../../services/StripeService";
 
 const Stripe = ({ amount }) => {
   const [product, setProduct] = React.useState({
@@ -18,8 +19,8 @@ const Stripe = ({ amount }) => {
       "Content-Type": "application/json",
     };
 
-    return axios
-      .post("/api/stripe/", body)
+    return stripeService
+      .postStripe(body)
       .then((res) => {
         console.log("Res", res);
         const { status } = res;
