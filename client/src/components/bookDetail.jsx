@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 // import Cookies from "js-cookie";
 import axios from "axios";
 import Cookies from "universal-cookie";
+import bookService from "../services/BookService";
 
 const cookies = new Cookies();
 
@@ -23,8 +24,8 @@ const BookDetail = (props) => {
   // const [cart, setCart] = React.useState([]);
 
   const getData = () => {
-    axios
-      .get("http://localhost:4500/api/books/" + props.match.params.id)
+    bookService
+      .getSingleBook(props.match.params.id)
       .then((res) => {
         setBook(res.data);
         console.log(book);

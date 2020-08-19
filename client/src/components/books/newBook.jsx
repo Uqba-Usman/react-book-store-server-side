@@ -8,6 +8,7 @@ import Joi from "@hapi/joi";
 import TextField from "@material-ui/core/TextField";
 import Input from "./../auth/input";
 import UploadFile from "./uploadFile";
+import bookService from "../../services/BookService";
 
 const NewBook = (props) => {
   const [data, setData] = useState({
@@ -109,8 +110,9 @@ const NewBook = (props) => {
     form.append("publisher", data.publisher);
 
     console.log("FORM: ", form);
-    axios
-      .post("http://localhost:4500/api/books", form)
+
+    bookService
+      .addBook(form)
       .then((res) => {
         console.log("Data Submitted", res);
         props.history.push("/");
