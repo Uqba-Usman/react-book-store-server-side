@@ -7,6 +7,7 @@ const { User, validateUser, validateUserLogin } = require("../../models/user");
 const bcrypt = require("bcryptjs");
 
 const db = require("../../connection/db");
+const newConn = require("../../connection/db");
 // router.post("/register", async (req, res, next) => {
 //   let user = await User.findOne({ email: req.body.email });
 //   if (user) return res.status(400).send("User with given email already Exist");

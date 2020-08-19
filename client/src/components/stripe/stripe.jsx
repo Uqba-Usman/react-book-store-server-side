@@ -19,7 +19,7 @@ const Stripe = ({ amount }) => {
     };
 
     return axios
-      .post("http://localhost:4500/api/stripe", body)
+      .post("api/stripe/", body)
       .then((res) => {
         console.log("Res", res);
         const { status } = res;
