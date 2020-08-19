@@ -31,6 +31,12 @@ app.use("/api/users", usersRouter);
 app.use("/api/books", booksRouter);
 app.use("/api/stripe", stripeRouter);
 
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, "client/build")));
+// Anything that doesn't match the above, send back index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
