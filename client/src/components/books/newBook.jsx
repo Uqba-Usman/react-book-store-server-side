@@ -105,8 +105,8 @@ const NewBook = (props) => {
     form.append("category", data.category);
     form.append("price", data.price);
     form.append("isbn", data.isbn);
-    form.append("isbn", data.edition);
-    form.append("isbn", data.publisher);
+    form.append("edition", data.edition);
+    form.append("publisher", data.publisher);
 
     console.log("FORM: ", form);
     axios
@@ -147,21 +147,21 @@ const NewBook = (props) => {
                   value={data.author}
                   onChange={handleChange}
                   error={error}
-                  label="author"
+                  label="Author"
                 />
                 <Input
                   name="edition"
                   value={data.edition}
                   onChange={handleChange}
                   error={error}
-                  label="edition"
+                  label="Edition"
                 />
                 <Input
                   name="publisher"
                   value={data.publisher}
                   onChange={handleChange}
                   error={error}
-                  label="publisher"
+                  label="Publisher"
                 />
                 <Input
                   name="category"

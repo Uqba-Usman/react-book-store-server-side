@@ -11,6 +11,7 @@ const {
 } = require("./googleDriveAuthentication/uploadDrive");
 const { query } = require("express");
 const { result } = require("lodash");
+const newConn = require("../../connection/db");
 
 //Get All books
 // router.get("/", async (req, res) => {
@@ -20,8 +21,8 @@ const { result } = require("lodash");
 
 router.get("/", async (req, res) => {
   let sql = "SELECT * FROM book";
-
-  db.query(sql, (err, books) => {
+  const databse = newConn();
+  databse.query(sql, (err, books) => {
     if (err) console.log(error);
     console.log("BOOKS", books);
     res.send(books);
@@ -43,8 +44,8 @@ router.get("/", async (req, res) => {
 // });
 router.get("/:id", async (req, res) => {
   let sql = "SELECT * FROM book WHERE ISBN = ?";
-
-  db.query(sql, req.params.id, (err, book) => {
+  const databse = newConn();
+  databse.query(sql, req.params.id, (err, book) => {
     if (err) console.log(error);
     console.log("BOOK", book[0]);
     res.send(book[0]);
@@ -105,7 +106,8 @@ router.post("/", async (req, res) => {
         publisher: fields.publisher,
         price: fields.price,
       };
-      db.query(sql_book, data, (err, result_book) => {
+      const databse = newConn();
+      databse.query(sql_book, data, (err, result_book) => {
         if (err) console.log(err);
         console.log("BOOK RESULT", result_book);
         console.log("FILE", file);
@@ -117,11 +119,16 @@ router.post("/", async (req, res) => {
             fileName: file.fileName,
             bookData_isbn: fields.isbn,
           };
-          db.query(sql_book_file, data_book_file, (err, result_book_file) => {
-            if (err) console.log(err);
-            console.log("BOOK DATA RESULT", result_book_file);
-            res.status(200).send("SUCCESS");
-          });
+          const databse = newConn();
+          databse.query(
+            sql_book_file,
+            data_book_file,
+            (err, result_book_file) => {
+              if (err) console.log(err);
+              console.log("BOOK DATA RESULT", result_book_file);
+              res.status(200).send("SUCCESS");
+            }
+          );
         } catch (error) {
           console.log("ERROR in file data Posting", error);
         }
@@ -156,7 +163,8 @@ router.put("/:id", (req, res) => {
     price: req.body.price,
   };
   let sql = `UPDATE book SET ? WHERE isbn = ${req.params.id}`;
-  db.query(sql, data, (err, result) => {
+  const databse = newConn();
+  databse.query(sql, data, (err, result) => {
     if (err) console.log(err);
     console.log("UPDATED RESULT", result);
     res.status(200).send(result);
@@ -171,7 +179,8 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   let sql = `DELETE FROM book where isbn = ${req.params.id}`;
-  db.query(sql, (err, result) => {
+  const databse = newConn();
+  databse.query(sql, (err, result) => {
     if (err) console.log("DELETION ERROR", err);
     console.log("RESULT", result);
     res.send(result);
