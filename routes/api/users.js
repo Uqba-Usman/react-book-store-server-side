@@ -63,6 +63,7 @@ router.post("/register", async (req, res, next) => {
               {
                 email: req.body.email,
                 name: `${req.body.fName} ${req.body.lName}`,
+                role: "user",
               },
               config.get("jwtPrivateKey")
             );
@@ -117,6 +118,7 @@ router.post("/login", (req, res) => {
           {
             email: result[0].email,
             name: `${result[0].fName} ${result[0].lName}`,
+            role: "user",
           },
           config.get("jwtPrivateKey")
         );

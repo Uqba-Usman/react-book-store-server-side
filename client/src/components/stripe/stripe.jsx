@@ -2,8 +2,12 @@ import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import stripeService from "../../services/StripeService";
+import userService from "../../services/UserService";
+import { Redirect } from "react-router";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
-const Stripe = ({ amount }) => {
+const Stripe = ({ amount, buttonDisabled }) => {
   const [product, setProduct] = React.useState({
     name: "UUTT Book Store",
     price: Number(amount),
@@ -14,6 +18,8 @@ const Stripe = ({ amount }) => {
     const body = {
       token,
       product,
+      email: userService.getLoggedInUser().email,
+      books: cookies.get("cart"),
     };
     const headers = {
       "Content-Type": "application/json",
@@ -39,7 +45,9 @@ const Stripe = ({ amount }) => {
       billingAddress
       name="UUTT Book Store"
     >
-      <button className="btn">Download</button>
+      <button className="btn" disabled={buttonDisabled}>
+        Checkout
+      </button>
     </StripeCheckout>
   );
 };

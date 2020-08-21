@@ -1,6 +1,7 @@
 var express = require("express");
 const { Books } = require("../../models/books");
 var router = express.Router();
+const fs = require("fs");
 const formidable = require("formidable");
 
 const db = require("../../connection/db");
@@ -12,6 +13,9 @@ const {
 const { query } = require("express");
 const { result } = require("lodash");
 const newConn = require("../../connection/db");
+const {
+  downloadPromise,
+} = require("./googleDriveAuthentication/downloadPromise");
 
 //Get All books
 // router.get("/", async (req, res) => {
@@ -94,50 +98,57 @@ router.post("/", async (req, res) => {
     let file;
     try {
       file = await uploadFilePromise(files, to_uploadDir);
+      fs.unlink(
+        __dirname + "/googleDriveAuthentication/upload/" + file.fileName,
+        (err) => {
+          if (err) throw err;
+          console.log("File was deleted");
+        }
+      );
+      try {
+        let sql_book = "INSERT INTO book SET ?";
+        let data = {
+          isbn: fields.isbn,
+          title: fields.title,
+          author: fields.author,
+          edition: fields.edition,
+          category: fields.category,
+          publisher: fields.publisher,
+          price: fields.price,
+        };
+        const database = newConn();
+        database.query(sql_book, data, (err, result_book) => {
+          if (err) return console.log(err);
+          console.log("BOOK RESULT", result_book);
+          console.log("FILE", file);
+          try {
+            let sql_book_file = "INSERT INTO bookdata set ?";
+            let data_book_file = {
+              fileID: file.fileId,
+              fileMimeType: file.fileMimeType,
+              fileName: file.fileName,
+              bookData_isbn: fields.isbn,
+            };
+
+            const database = newConn();
+            database.query(
+              sql_book_file,
+              data_book_file,
+              (err, result_book_file) => {
+                if (err) return console.log(err);
+                console.log("BOOK DATA RESULT", result_book_file);
+                return res.status(200).send("SUCCESS");
+              }
+            );
+          } catch (error) {
+            console.log("ERROR in file data Posting", error);
+          }
+        });
+      } catch (error) {
+        console.log("ERROR in book Posting", error);
+      }
     } catch (err) {
       return console.log("Uploading Failed", err);
-    }
-    try {
-      let sql_book = "INSERT INTO book SET ?";
-      let data = {
-        isbn: fields.isbn,
-        title: fields.title,
-        author: fields.author,
-        edition: fields.edition,
-        category: fields.category,
-        publisher: fields.publisher,
-        price: fields.price,
-      };
-      const database = newConn();
-      database.query(sql_book, data, (err, result_book) => {
-        if (err) return console.log(err);
-        console.log("BOOK RESULT", result_book);
-        console.log("FILE", file);
-        try {
-          let sql_book_file = "INSERT INTO bookdata set ?";
-          let data_book_file = {
-            fileID: file.fileId,
-            fileMimeType: file.fileMimeType,
-            fileName: file.fileName,
-            bookData_isbn: fields.isbn,
-          };
-
-          const database = newConn();
-          database.query(
-            sql_book_file,
-            data_book_file,
-            (err, result_book_file) => {
-              if (err) return console.log(err);
-              console.log("BOOK DATA RESULT", result_book_file);
-              return res.status(200).send("SUCCESS");
-            }
-          );
-        } catch (error) {
-          console.log("ERROR in file data Posting", error);
-        }
-      });
-    } catch (error) {
-      console.log("ERROR in book Posting", error);
     }
   });
 });
@@ -189,5 +200,43 @@ router.delete("/:id", (req, res) => {
     res.send(result);
   });
 });
+
+// router.get("/download", (req, res) => {
+// Load client secrets from a local file.
+// const isbn = req.body.isbn;
+// let sql = "SELECT * FROM bookData where bookData_isbn = ?";
+// const database = newConn();
+// database.query(sql, isbn, async (err, result) => {
+//   if (err) {
+//     console.log("ERROR", err);
+//     res.status(400).send("DB ERROR");
+//   }
+// console.log("RESULT", result);
+
+// console.log("DOWNLOAD START");
+// const fId = "1WiqfXJERTgdxPFYyQLKXxCcWVLYTfFWG";
+// const downloadResult = await downloadPromise("3.jpg", fId);
+// console.log("DOWNLOAD RSULT, ", downloadResult);
+// const filePath = __dirname + "/googleDriveAuthentication/upload/" + "3.jpg";
+// res.download(filePath);
+// res.send("SUCCESS");
+
+// });
+//   console.log("DOWNLOAD");
+//   const fId = "1wf5DQi8LnBLPgbpKdW4bmmgmjRSH1o1Y";
+//   downloadPromise("m.jpg", fId)
+//     .then(async (resu) => {
+//       console.log("DOWNLOAD RSULT, ", resu);
+//       const filePath =
+//         __dirname + "/googleDriveAuthentication/upload/" + "m.jpg";
+//       console.log("FILEPATH", filePath);
+//       const result = await res.download(filePath);
+
+//       console.log("RESULT", result);
+//     })
+//     .catch((error) => {
+//       console.log("EROR", error);
+//     });
+// });
 
 module.exports = router;

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import CartProduct from "./cartProduct";
 import Cookies from "universal-cookie";
 import Stripe from "../stripe/stripe";
+import userService from "../../services/UserService";
+import StripeCheckout from "react-stripe-checkout";
 
 const cookies = new Cookies();
 
@@ -10,7 +12,14 @@ const Cart = () => {
   const [data, setData] = React.useState(
     cookies.get("cart") ? cookies.get("cart") : []
   );
+  const [buttonDisabled, setButtonDisabled] = React.useState(false);
   // const [cookies, setCookie] = useCookies(["cart"]);
+
+  React.useEffect(() => {
+    userService.isLoggedIn() || data.length === 0
+      ? setButtonDisabled(false)
+      : setButtonDisabled(true);
+  }, []);
 
   const handleButton = () => {
     console.log("Button");
@@ -22,6 +31,13 @@ const Cart = () => {
       total += Number(b.price) * Number(b.quantity);
     });
     return total;
+  };
+  const handleCheckout = () => {
+    // userService.isLoggedIn() ? (
+    // <Stripe amount={calculateTotal()} />;
+    // ) : (
+    //   <Redirect to="/login" />
+    // );
   };
 
   return (
@@ -80,10 +96,41 @@ const Cart = () => {
                   </tbody>
                 </table>
               </div>
-              {/* <Link to="/checkout" className="btn icon-left float-right">
-                <span>Proceed to Checkout</span>
-              </Link> */}
-              <Stripe amount={calculateTotal()} />
+              <Stripe
+                amount={calculateTotal()}
+                buttonDisabled={buttonDisabled}
+              />
+              {!userService.isLoggedIn() && (
+                <div class="col-sm-12 pb-3">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <h4 class="upper">
+                        <a
+                          class="collapsed"
+                          href="#collapseFour"
+                          data-toggle="collapse"
+                          aria-expanded="false"
+                          style={{ fontSize: 16 }}
+                        >
+                          Kindly Login First to Enable Checkout
+                          <i class="icon-arrow-down-circle"></i>
+                        </a>
+                      </h4>
+                    </div>
+                    <div class="col-lg-12">
+                      <div
+                        class="panel-collapse collapse"
+                        id="collapseFour"
+                        aria-expanded="false"
+                      >
+                        <Link to="/login" className="btn icon-left float-left">
+                          <span>Login</span>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

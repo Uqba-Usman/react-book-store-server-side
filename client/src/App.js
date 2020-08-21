@@ -1,7 +1,12 @@
 import React from "react";
 import "./App.css";
 
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  BrowserRouter as Router,
+  Redirect,
+} from "react-router-dom";
 import Header from "./components/header";
 import Blogs from "./components/Blogs";
 import BookDetail from "./components/bookDetail";
@@ -18,6 +23,9 @@ import "react-toastify/dist/ReactToastify.css";
 import UpdateBook from "./components/books/updateBook";
 import AdminDashboard from "./components/adminTable/adminDashboard";
 import axios from "axios";
+import DownloadBook from "./components/download/DownloadBook";
+import AdminLogin from "./components/adminTable/adminLogin";
+import userService from "./services/UserService";
 
 function App() {
   // const [products, setProducts] = React.useState([]);
@@ -40,15 +48,23 @@ function App() {
         <Appbar />
 
         <Switch>
-          <Route path="/admin-dashboard" component={AdminDashboard} exact />
-          <Route path="/books/update/:id" component={UpdateBook} exact />
+          {userService.isAdmin() && (
+            <Route path="/admin-dashboard" component={AdminDashboard} exact />
+          )}
+          {userService.isAdmin() && (
+            <Route path="/books/update/:id" component={UpdateBook} exact />
+          )}
+          <Route path="/books/download" component={DownloadBook} exact />
+          <Route path="/admin/login" component={AdminLogin} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/register" component={Register} exact />
-          <Route path="/newBook" component={NewBook} exact />
-          <Route path="/checkout" component={Checkout} exact />
+          {userService.isAdmin() && (
+            <Route path="/newBook" component={NewBook} exact />
+          )}
           <Route path="/cart" component={Cart} exact />
           <Route path="/bookDetail/:id" component={BookDetail} exact />
           <Route path="/" component={Blogs} exact />
+          <Redirect to="/" />
         </Switch>
         <Footer />
       </Router>

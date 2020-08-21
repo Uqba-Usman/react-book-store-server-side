@@ -9,6 +9,7 @@ class UserService extends GenericService {
       this.post("/api/users/login", { email, password })
         .then((token) => {
           localStorage.setItem("token", token);
+          console.log("TOKEN", token);
           resolve(token);
         })
         .catch((err) => {

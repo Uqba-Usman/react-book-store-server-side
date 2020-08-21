@@ -148,18 +148,39 @@ const Appbar = (props) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      {userService.isAdmin() && (
+        <MenuItem component={Link} to="/admin-dashboard">
+          <p>Admin Dashboard</p>
+        </MenuItem>
+      )}
+
       <MenuItem component={Link} to="/">
         <p>Home</p>
       </MenuItem>
-      <MenuItem component={Link} to="/newBook">
-        <p>Add Book</p>
-      </MenuItem>
-      <MenuItem component={Link} to="/register">
-        <p>Register</p>
-      </MenuItem>
-      <MenuItem component={Link} to="/login">
-        <p>Login</p>
-      </MenuItem>
+      {!userService.isAdmin() && (
+        <MenuItem component={Link} to="/admin/login">
+          <p>Admin Login</p>
+        </MenuItem>
+      )}
+      {!userService.isLoggedIn() ? (
+        <>
+          <MenuItem component={Link} to="/register">
+            <p>Register</p>
+          </MenuItem>
+          <MenuItem component={Link} to="/login">
+            <p>Login</p>
+          </MenuItem>
+        </>
+      ) : (
+        <MenuItem
+          onClick={() => {
+            userService.logout();
+            window.location.reload();
+          }}
+        >
+          Logout
+        </MenuItem>
+      )}
 
       <MenuItem>
         <IconButton aria-label="show 4 new mails">
@@ -183,11 +204,6 @@ const Appbar = (props) => {
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            {/* <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton> */}
             {userService.isAdmin() && (
               <Typography variant="h6" className={classes.textLink}>
                 <Link to="/admin-dashboard">Admin Dashboard</Link>
@@ -196,11 +212,11 @@ const Appbar = (props) => {
             <Typography variant="h6" className={classes.textLink}>
               <Link to="/">Home</Link>
             </Typography>
-            {/* {userService.isAdmin() && (
+            {!userService.isAdmin() && (
               <Typography variant="h6" className={classes.textLink}>
-                <Link to="/newBook">New Book</Link>
+                <Link to="/admin/login">Admin Login</Link>
               </Typography>
-            )} */}
+            )}
             {!userService.isLoggedIn() ? (
               <>
                 <Typography variant="h6" className={classes.textLink}>
@@ -218,7 +234,7 @@ const Appbar = (props) => {
                     window.location.reload();
                   }}
                 >
-                  {userService.getLoggedInUser().name}
+                  Logout
                 </Link>
               </Typography>
             )}
