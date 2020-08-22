@@ -8,7 +8,17 @@ class DownloadService extends GenericService {
   downloadBook = (data) =>
     new Promise(async (resolve, reject) => {
       try {
-        const res = await this.get("/api/download");
+        const res = await this.post("/api/download/book", data);
+        resolve(res);
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+  getBooks = (data) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const res = await this.post("/api/download/gallerybooks", data);
         resolve(res);
       } catch (error) {
         reject(error);

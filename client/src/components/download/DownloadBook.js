@@ -7,15 +7,31 @@ import fileDownload from "js-file-download";
 const cookies = new Cookies();
 
 const DownloadBook = () => {
-  const [data, setData] = React.useState(
-    cookies.get("cart") ? cookies.get("cart") : []
-  );
+  const [books, setBooks] = React.useState([]);
+
+  React.useEffect(() => {
+    console.log(userService.getLoggedInUser().email);
+    let data = {
+      email: userService.getLoggedInUser().email,
+    };
+    downloadService
+      .getBooks(data)
+      .then((res) => {
+        console.log("RSPONSE", res);
+        setBooks(res);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleDownload = (b) => {
     console.log(b.isbn);
 
+    let data = {
+      isbn: b.isbn,
+    };
+
     downloadService
-      .downloadBook()
+      .downloadBook(data)
       .then((res) => {
         console.log("Book Download", res);
         fileDownload(res, "good.jpg");
@@ -25,10 +41,10 @@ const DownloadBook = () => {
   return (
     <section>
       <div className="container">
-        {data.length === 0 ? (
+        {books.length === 0 ? (
           <p>No Book Availabe</p>
         ) : (
-          data.map((b, index) => (
+          books.map((b, index) => (
             <ul key={index}>
               {/* <button className="btn" onClick={() => handleDownload(b)}>
                 {b.title}
