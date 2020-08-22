@@ -10,7 +10,6 @@ const DownloadBook = () => {
   const [books, setBooks] = React.useState([]);
 
   React.useEffect(() => {
-    console.log(userService.getLoggedInUser().email);
     let data = {
       email: userService.getLoggedInUser().email,
     };
@@ -34,7 +33,7 @@ const DownloadBook = () => {
       .downloadBook(data)
       .then((res) => {
         console.log("Book Download", res);
-        fileDownload(res, "good.jpg");
+        fileDownload(res, "Book.jpg");
       })
       .catch((err) => console.log(err));
   };

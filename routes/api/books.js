@@ -94,6 +94,7 @@ router.post("/", async (req, res) => {
   form.uploadDir = __dirname + "/googleDriveAuthentication/upload/";
   to_uploadDir = form.uploadDir;
   form.parse(req, async function (err, fields, files) {
+    console.log("FILENAME", files.file.name);
     console.log("FIELD: ", fields);
     let file;
     try {
@@ -121,6 +122,8 @@ router.post("/", async (req, res) => {
           if (err) return console.log(err);
           console.log("BOOK RESULT", result_book);
           console.log("FILE", file);
+          // const concat = fields.title + file.fileMimeType;
+          // console.log("FMPT", concat);
           try {
             let sql_book_file = "INSERT INTO bookdata set ?";
             let data_book_file = {
