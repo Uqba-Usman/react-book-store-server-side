@@ -2,7 +2,7 @@ import React from "react";
 import Cookies from "universal-cookie";
 import userService from "../../services/UserService";
 import downloadService from "../../services/DownloadService";
-// import file from "../../../../routes/api/googleDriveAuthentication/upload/";
+import fileDownload from "js-file-download";
 
 const cookies = new Cookies();
 
@@ -16,7 +16,10 @@ const DownloadBook = () => {
 
     downloadService
       .downloadBook()
-      .then((res) => console.log("Book Download", res))
+      .then((res) => {
+        console.log("Book Download", res);
+        fileDownload(res, "good.jpg");
+      })
       .catch((err) => console.log(err));
   };
   return (

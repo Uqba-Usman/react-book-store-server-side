@@ -31,7 +31,7 @@ const Stripe = ({ amount, buttonDisabled }) => {
         console.log("Res", res);
         const { status } = res;
         console.log("Status", status);
-        window.location.href = "/";
+        window.location.href = "/books/download";
       })
       .catch((err) => console.log(err));
   };

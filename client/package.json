@@ -19,6 +19,7 @@
     "bootstrap": "^4.4.1",
     "http-proxy-middleware": "^1.0.5",
     "js-cookie": "^2.2.1",
+    "js-file-download": "^0.4.12",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.20",
     "react": "^16.13.1",
