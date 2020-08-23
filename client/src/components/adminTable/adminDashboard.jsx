@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import bookService from "../../services/BookService";
+import { withRouter } from "react-router";
 
 const AdminDashboard = (props) => {
   const [books, setBooks] = React.useState([]);
@@ -34,7 +35,8 @@ const AdminDashboard = (props) => {
 
   const handleEdit = (book) => {
     console.log("Edit");
-    props.history.push("/books/update/" + book.isbn);
+    // props.history.push("/books/update/" + book.isbn);
+    window.location.href = "/books/update/" + book.isbn;
   };
 
   return (
@@ -45,7 +47,10 @@ const AdminDashboard = (props) => {
             <button
               type="button"
               className="btn btn-light"
-              onClick={() => props.history.push("/newBook")}
+              onClick={() =>
+                // props.history.push("/newBook")
+                (window.location.href = "/newBook")
+              }
             >
               <i className="icon-plus"></i> Add Book
             </button>

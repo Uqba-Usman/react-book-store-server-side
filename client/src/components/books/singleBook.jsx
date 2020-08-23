@@ -23,10 +23,10 @@ const SingleBook = ({ book }) => {
         <div className="product">
           <div className="product-image">
             <Link to={`/bookDetail/${book.isbn}`}>
-              <img src="polo/images/shop/products/1.jpg"></img>
+              <img src="polo/images/download.jpg"></img>
             </Link>
             <Link to={`/bookDetail/${book.isbn}`}>
-              <img src="polo/images/shop/products/10.jpg"></img>
+              <img src="polo/images/download.jpg"></img>
             </Link>
             {/* <span className="product-new">NEW</span> */}
             <span className="product-wishlist">

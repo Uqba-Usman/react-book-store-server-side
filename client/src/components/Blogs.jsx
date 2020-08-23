@@ -104,32 +104,236 @@ const Blogs = () => {
   };
 
   return (
-    <section>
-      {/* {books.length === 0 && return <p>There is no book available</p>} */}
-      <div className="container">
-        <div class="col-lg-4  center pb-5">
-          <SearchBox value={searchQuery} onChange={handleSearch} />
+    <div>
+      <section
+        id="page-title"
+        class="text-light"
+        data-bg-parallax="polo/images/e.jpg"
+      >
+        <div class="container">
+          <div class="page-title">
+            <h1>Welcome to UUTT</h1>
+            <p>Book Store</p>
+          </div>
         </div>
+      </section>
+      <section>
+        {/* {books.length === 0 && return <p>There is no book available</p>} */}
+        <div className="container">
+          <div class="col-lg-4  center pb-5">
+            <SearchBox value={searchQuery} onChange={handleSearch} />
+          </div>
 
-        <div class="row">
-          {data.length === 0 ? (
-            <p>There is no book available</p>
-          ) : (
-            <div class="row">
-              {data.map((book, index) => (
-                <SingleBook key={index} book={book} />
-              ))}
-            </div>
-          )}
+          <div class="row">
+            {data.length === 0 ? (
+              <p>There is no book available</p>
+            ) : (
+              <div class="row">
+                {data.map((book, index) => (
+                  <SingleBook key={index} book={book} />
+                ))}
+              </div>
+            )}
+          </div>
+          <Pagination
+            itemsCount={totalCount}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
         </div>
-        <Pagination
-          itemsCount={totalCount}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />
-      </div>
-    </section>
+      </section>
+      <section id="section5" class="background-grey p-t-100 p-b-100">
+        <div class="container">
+          <div class="heading-text heading-section text-center">
+            <h2>Meet our Team</h2>
+            <p>A true story, that never been told!</p>
+          </div>
+          <div class="row team-members team-members-circle m-b-40">
+            <div class="col-lg-3">
+              <div class="team-member">
+                <div class="team-image">
+                  <img src="polo/images/uqba.jpg" />
+                </div>
+                <div class="team-desc">
+                  <h3>Muhammad Uqba</h3>
+                  <span>Software Developer</span>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing tristique
+                    hendrerit laoreet.{" "}
+                  </p>
+                  <div class="align-center">
+                    <a class="btn btn-xs btn-slide btn-light" href="#">
+                      <i class="fab fa-facebook-f"></i>
+                      <span>Facebook</span>
+                    </a>
+                    <a
+                      class="btn btn-xs btn-slide btn-light"
+                      href="#"
+                      data-width="100"
+                    >
+                      <i class="fab fa-twitter"></i>
+                      <span>Twitter</span>
+                    </a>
+                    <a
+                      class="btn btn-xs btn-slide btn-light"
+                      href="#"
+                      data-width="118"
+                    >
+                      <i class="fab fa-instagram"></i>
+                      <span>Instagram</span>
+                    </a>
+                    <a
+                      class="btn btn-xs btn-slide btn-light"
+                      href="mailto:#"
+                      data-width="80"
+                    >
+                      <i class="far fa-envelope"></i>
+                      <span>Mail</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="team-member">
+                <div class="team-image">
+                  <img src="polo/images/umar.jpg" />
+                </div>
+                <div class="team-desc">
+                  <h3>Umar Shahbaz</h3>
+                  <span>Software Developer</span>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing tristique
+                    hendrerit laoreet.{" "}
+                  </p>
+                  <div class="align-center">
+                    <a class="btn btn-xs btn-slide btn-light" href="#">
+                      <i class="fab fa-facebook-f"></i>
+                      <span>Facebook</span>
+                    </a>
+                    <a
+                      class="btn btn-xs btn-slide btn-light"
+                      href="#"
+                      data-width="100"
+                    >
+                      <i class="fab fa-twitter"></i>
+                      <span>Twitter</span>
+                    </a>
+                    <a
+                      class="btn btn-xs btn-slide btn-light"
+                      href="#"
+                      data-width="118"
+                    >
+                      <i class="fab fa-instagram"></i>
+                      <span>Instagram</span>
+                    </a>
+                    <a
+                      class="btn btn-xs btn-slide btn-light"
+                      href="mailto:#"
+                      data-width="80"
+                    >
+                      <i class="far fa-envelope"></i>
+                      <span>Mail</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="team-member">
+                <div class="team-image">
+                  <img src="polo/images/talha.jpeg" />
+                </div>
+                <div class="team-desc">
+                  <h3>Talha Ahmed</h3>
+                  <span>Software Developer</span>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing tristique
+                    hendrerit laoreet.{" "}
+                  </p>
+                  <div class="align-center">
+                    <a class="btn btn-xs btn-slide btn-light" href="#">
+                      <i class="fab fa-facebook-f"></i>
+                      <span>Facebook</span>
+                    </a>
+                    <a
+                      class="btn btn-xs btn-slide btn-light"
+                      href="#"
+                      data-width="100"
+                    >
+                      <i class="fab fa-twitter"></i>
+                      <span>Twitter</span>
+                    </a>
+                    <a
+                      class="btn btn-xs btn-slide btn-light"
+                      href="#"
+                      data-width="118"
+                    >
+                      <i class="fab fa-instagram"></i>
+                      <span>Instagram</span>
+                    </a>
+                    <a
+                      class="btn btn-xs btn-slide btn-light"
+                      href="mailto:#"
+                      data-width="80"
+                    >
+                      <i class="far fa-envelope"></i>
+                      <span>Mail</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="team-member">
+                <div class="team-image">
+                  <img src="polo/images/tahir.jpg" />
+                </div>
+                <div class="team-desc">
+                  <h3>Tahir Tariq</h3>
+                  <span>Software Developer</span>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing tristique
+                    hendrerit laoreet.{" "}
+                  </p>
+                  <div class="align-center">
+                    <a class="btn btn-xs btn-slide btn-light" href="#">
+                      <i class="fab fa-facebook-f"></i>
+                      <span>Facebook</span>
+                    </a>
+                    <a
+                      class="btn btn-xs btn-slide btn-light"
+                      href="#"
+                      data-width="100"
+                    >
+                      <i class="fab fa-twitter"></i>
+                      <span>Twitter</span>
+                    </a>
+                    <a
+                      class="btn btn-xs btn-slide btn-light"
+                      href="#"
+                      data-width="118"
+                    >
+                      <i class="fab fa-instagram"></i>
+                      <span>Instagram</span>
+                    </a>
+                    <a
+                      class="btn btn-xs btn-slide btn-light"
+                      href="mailto:#"
+                      data-width="80"
+                    >
+                      <i class="far fa-envelope"></i>
+                      <span>Mail</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 
