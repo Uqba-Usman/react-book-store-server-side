@@ -83,6 +83,11 @@ const Blogs = () => {
         getPageData(res, currentPage, pageSize, searchQuery);
       })
       .catch((err) => console.log(err));
+
+    // axios
+    //   .get("localhost:4500/api/books")
+    //   .then((result) => setBooks(result))
+    //   .catch((error) => console.log(error));
   }, []);
 
   const handlePageChange = async (page) => {

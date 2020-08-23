@@ -4,6 +4,21 @@ class UserService extends GenericService {
   constructor() {
     super();
   }
+
+  getUsers = () => this.get("/api/users");
+
+  getUserFavourties = (email) =>
+    new Promise((resolve, reject) => {
+      this.post("/api/users/favourites", { email })
+        .then((res) => {
+          console.log();
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+
   login = (email, password) =>
     new Promise((resolve, reject) => {
       this.post("/api/users/login", { email, password })

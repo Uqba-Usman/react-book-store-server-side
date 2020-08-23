@@ -25,11 +25,10 @@ const newConn = require("../../connection/db");
 
 router.post("/gallerybooks", (req, res) => {
   console.log("RB, ", req.body);
-  let sql =
-    "SELECT * FROM book WHERE isbn in (SELECT book_isbn FROM usergallery WHERE user_email = ?)";
+  let sql = `SELECT * FROM book, bookdata WHERE book.isbn in (SELECT book_isbn FROM usergallery WHERE user_email = '${req.body.email}') and bookdata.bookData_isbn in (SELECT book_isbn FROM usergallery WHERE user_email = '${req.body.email}')`;
   let database = newConn();
   try {
-    database.query(sql, req.body.email, (err, result) => {
+    database.query(sql, (err, result) => {
       if (err) console.log("ERRO", err);
       console.log("RESULT", result);
       res.send(result);

@@ -1,8 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Grid } from "@material-ui/core";
+import userService from "../../services/UserService";
+import favouritesService from "../../services/FavouritesService";
 
 const SingleBook = ({ book }) => {
+  const handleFavourites = (isbn) => {
+    const email = userService.getLoggedInUser().email;
+    console.log("FAVOURITES", isbn, email);
+    const data = {
+      email: email,
+      isbn: isbn,
+    };
+    favouritesService
+      .addFavourites(data)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
   return (
     <div className="col-lg-3 col-md-4 col-sm-6">
       <div className="grid-item">
@@ -16,9 +30,11 @@ const SingleBook = ({ book }) => {
             </Link>
             {/* <span className="product-new">NEW</span> */}
             <span className="product-wishlist">
-              <Link to="#">
-                <i className="fa fa-heart"></i>
-              </Link>
+              {userService.getLoggedInUser() && (
+                <Link onClick={() => handleFavourites(book.isbn)} to="#">
+                  <i className="fa fa-heart"></i>
+                </Link>
+              )}
             </span>
             <div className="product-overlay">
               <Link to={`/bookDetail/${book.isbn}`}>Quick View</Link>

@@ -8,6 +8,7 @@ var bodyParser = require("body-parser");
 var multer = require("multer");
 var downloadRouter = require("./routes/api/download");
 var usersRouter = require("./routes/api/users");
+var favouritesRouter = require("./routes/api/favourites");
 var adminRouter = require("./routes/api/admin");
 var booksRouter = require("./routes/api/books");
 var cartRouter = require("./routes/api/cart");
@@ -29,6 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/api/favourites", favouritesRouter);
 app.use("/api/download", downloadRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/users", usersRouter);

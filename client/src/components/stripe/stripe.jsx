@@ -5,6 +5,8 @@ import stripeService from "../../services/StripeService";
 import userService from "../../services/UserService";
 import { Redirect } from "react-router";
 import Cookies from "universal-cookie";
+import downloadService from "../../services/DownloadService";
+import fileDownload from "js-file-download";
 const cookies = new Cookies();
 
 const Stripe = ({ amount, buttonDisabled }) => {
@@ -13,14 +15,20 @@ const Stripe = ({ amount, buttonDisabled }) => {
     price: Number(amount),
     productBy: "UUTT Book Store",
   });
+  const [booksData, setBookData] = React.useState(
+    cookies.get("cart") ? cookies.get("cart") : []
+  );
+
+  React.useEffect(() => {}, []);
 
   const makePayment = (token) => {
     const body = {
       token,
       product,
       email: userService.getLoggedInUser().email,
-      books: cookies.get("cart"),
+      books: booksData,
     };
+    console.log("BODY", booksData);
     const headers = {
       "Content-Type": "application/json",
     };
@@ -31,7 +39,22 @@ const Stripe = ({ amount, buttonDisabled }) => {
         console.log("Res", res);
         const { status } = res;
         console.log("Status", status);
-        window.location.href = "/books/download";
+        console.log("InsideBODY", booksData);
+        booksData.map(async (b, index) => {
+          try {
+            console.log("BDB", body.books[0]);
+            let data = {
+              isbn: b.isbn,
+            };
+            console.log("BDB", data);
+            const bookRes = await downloadService.downloadBook(data);
+            console.log("Book Download", bookRes);
+            fileDownload(res, "Book.pdf");
+          } catch (error) {
+            console.log("Download Error", error);
+          }
+        });
+        // window.location.href = "/books/download";
       })
       .catch((err) => console.log(err));
   };

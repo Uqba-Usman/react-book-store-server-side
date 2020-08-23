@@ -157,6 +157,13 @@ const Appbar = (props) => {
       <MenuItem component={Link} to="/">
         <p>Home</p>
       </MenuItem>
+
+      {userService.getLoggedInUser() && (
+        <MenuItem component={Link} to="/">
+          <p>Home</p>
+        </MenuItem>
+      )}
+
       {!userService.isAdmin() && (
         <MenuItem component={Link} to="/admin/login">
           <p>Admin Login</p>
@@ -212,6 +219,11 @@ const Appbar = (props) => {
             <Typography variant="h6" className={classes.textLink}>
               <Link to="/">Home</Link>
             </Typography>
+            {userService.getLoggedInUser() && (
+              <Typography variant="h6" className={classes.textLink}>
+                <Link to="/favourites">Favourites</Link>
+              </Typography>
+            )}
             {!userService.isAdmin() && (
               <Typography variant="h6" className={classes.textLink}>
                 <Link to="/admin/login">Admin Login</Link>

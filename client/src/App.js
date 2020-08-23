@@ -26,6 +26,8 @@ import axios from "axios";
 import DownloadBook from "./components/download/DownloadBook";
 import AdminLogin from "./components/adminTable/adminLogin";
 import userService from "./services/UserService";
+import AdminMain from "./components/adminTable/adminMain";
+import UserFavourites from "./components/userFavourites";
 
 function App() {
   // const [products, setProducts] = React.useState([]);
@@ -46,16 +48,45 @@ function App() {
       <Router>
         <ToastContainer />
         <Appbar />
+        {/* <section
+          id="page-title"
+          class="text-light"
+          data-bg-parallax="polo/images/parallax/6.jpg"
+        >
+          <div class="container">
+            <div class="page-title">
+              <h1>Portfolio Grid</h1>
+            </div>
+            <div class="breadcrumb">
+              <ul>
+                <li>
+                  <a href="#">Home</a>
+                </li>
+                <li>
+                  <a href="#">Portfolio</a>
+                </li>
+                <li class="active">
+                  <a href="#">Three Columns</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section> */}
 
         <Switch>
           {userService.isAdmin() && (
-            <Route path="/admin-dashboard" component={AdminDashboard} exact />
+            <Route path="/admin-dashboard" component={AdminMain} exact />
           )}
           {userService.isAdmin() && (
             <Route path="/books/update/:id" component={UpdateBook} exact />
           )}
+          {userService.getLoggedInUser && (
+            <Route path="/favourites" component={UserFavourites} exact />
+          )}
+
           <Route path="/books/download" component={DownloadBook} exact />
           <Route path="/admin/login" component={AdminLogin} exact />
+          <Route path="/admin/main" component={AdminMain} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/register" component={Register} exact />
           {userService.isAdmin() && (

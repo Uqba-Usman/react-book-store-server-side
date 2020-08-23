@@ -3,30 +3,17 @@ const { Books } = require("../../models/books");
 var router = express.Router();
 const fs = require("fs");
 const formidable = require("formidable");
-
-const db = require("../../connection/db");
-
 const {
   uploadDrive,
   uploadFilePromise,
 } = require("./googleDriveAuthentication/uploadDrive");
-const { query } = require("express");
-const { result } = require("lodash");
 const newConn = require("../../connection/db");
-const {
-  downloadPromise,
-} = require("./googleDriveAuthentication/downloadPromise");
 
-//Get All books
-// router.get("/", async (req, res) => {
-//   let books = await Books.find();
-//   res.send(books);
-// });
-
+//Get all books
 router.get("/", async (req, res) => {
-  let sql = "SELECT * FROM book";
-
+  const sql = "SELECT * FROM book";
   const database = newConn();
+
   database.query(sql, (err, books) => {
     if (err) console.log(error);
     console.log("BOOKS", books);
@@ -34,19 +21,7 @@ router.get("/", async (req, res) => {
   });
 });
 
-// // Get single book
-// router.get("/:id", async (req, res) => {
-//   try {
-//     let book = await Books.findById(req.params.id);
-//     if (!book) {
-//       return res.status(400).send("Book with given id is not present");
-//     }
-//     console.log(book.price);
-//     return res.send(book);
-//   } catch (err) {
-//     return res.status(400).send("Invalid ID");
-//   }
-// });
+//Get single book using isbn
 router.get("/:id", async (req, res) => {
   let sql = "SELECT * FROM book WHERE ISBN = ?";
 
@@ -58,37 +33,7 @@ router.get("/:id", async (req, res) => {
   });
 });
 
-// //Insert new Book
-// router.post("/", async (req, res) => {
-//   var form = new formidable.IncomingForm();
-//   form.uploadDir = __dirname + "/googleDriveAuthentication/upload/";
-//   to_uploadDir = form.uploadDir;
-//   form.parse(req, async function (err, fields, files) {
-//     console.log("FIELD: ", fields);
-//     let file;
-//     try {
-//       file = await uploadFilePromise(files, to_uploadDir);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//     try {
-//       let book = new Books();
-//       book.title = fields.title;
-//       book.description = fields.description;
-//       book.price = fields.price;
-//       book.author = fields.author;
-//       book.isbn = fields.isbn;
-//       book.category = fields.category;
-//       book.file = file;
-//       await book.save();
-//       console.log("Book", book);
-//       res.status(200).send(book);
-//     } catch (error) {
-//       console.log(err);
-//     }
-//   });
-// });
-
+//Insert book
 router.post("/", async (req, res) => {
   var form = new formidable.IncomingForm();
   form.uploadDir = __dirname + "/googleDriveAuthentication/upload/";
@@ -122,8 +67,7 @@ router.post("/", async (req, res) => {
           if (err) return console.log(err);
           console.log("BOOK RESULT", result_book);
           console.log("FILE", file);
-          // const concat = fields.title + file.fileMimeType;
-          // console.log("FMPT", concat);
+
           try {
             let sql_book_file = "INSERT INTO bookdata set ?";
             let data_book_file = {
@@ -145,6 +89,7 @@ router.post("/", async (req, res) => {
             );
           } catch (error) {
             console.log("ERROR in file data Posting", error);
+            return res.status(400).send("ERROR in file data inserting");
           }
         });
       } catch (error) {
@@ -155,19 +100,6 @@ router.post("/", async (req, res) => {
     }
   });
 });
-
-// //Update book
-// router.put("/:id", async (req, res) => {
-//   let book = await Books.findById(req.params.id);
-//   book.title = req.body.title;
-//   book.description = req.body.description;
-//   book.price = req.body.price;
-//   book.author = req.body.author;
-//   book.isbn = req.body.isbn;
-//   book.category = req.body.category;
-//   await book.save();
-//   return res.send(book);
-// });
 
 router.put("/:id", (req, res) => {
   let data = {
@@ -188,12 +120,6 @@ router.put("/:id", (req, res) => {
   });
 });
 
-// //Delete a book
-// router.delete("/:id", async (req, res) => {
-//   let book = await Books.findByIdAndDelete(req.params.id);
-//   res.send(book);
-// });
-
 router.delete("/:id", (req, res) => {
   let sql = `DELETE FROM book where isbn = ${req.params.id}`;
   const database = newConn();
@@ -204,42 +130,68 @@ router.delete("/:id", (req, res) => {
   });
 });
 
-// router.get("/download", (req, res) => {
-// Load client secrets from a local file.
-// const isbn = req.body.isbn;
-// let sql = "SELECT * FROM bookData where bookData_isbn = ?";
-// const database = newConn();
-// database.query(sql, isbn, async (err, result) => {
-//   if (err) {
-//     console.log("ERROR", err);
-//     res.status(400).send("DB ERROR");
-//   }
-// console.log("RESULT", result);
-
-// console.log("DOWNLOAD START");
-// const fId = "1WiqfXJERTgdxPFYyQLKXxCcWVLYTfFWG";
-// const downloadResult = await downloadPromise("3.jpg", fId);
-// console.log("DOWNLOAD RSULT, ", downloadResult);
-// const filePath = __dirname + "/googleDriveAuthentication/upload/" + "3.jpg";
-// res.download(filePath);
-// res.send("SUCCESS");
-
-// });
-//   console.log("DOWNLOAD");
-//   const fId = "1wf5DQi8LnBLPgbpKdW4bmmgmjRSH1o1Y";
-//   downloadPromise("m.jpg", fId)
-//     .then(async (resu) => {
-//       console.log("DOWNLOAD RSULT, ", resu);
-//       const filePath =
-//         __dirname + "/googleDriveAuthentication/upload/" + "m.jpg";
-//       console.log("FILEPATH", filePath);
-//       const result = await res.download(filePath);
-
-//       console.log("RESULT", result);
-//     })
-//     .catch((error) => {
-//       console.log("EROR", error);
-//     });
-// });
-
 module.exports = router;
+
+// // Get single book
+// router.get("/:id", async (req, res) => {
+//   try {
+//     let book = await Books.findById(req.params.id);
+//     if (!book) {
+//       return res.status(400).send("Book with given id is not present");
+//     }
+//     console.log(book.price);
+//     return res.send(book);
+//   } catch (err) {
+//     return res.status(400).send("Invalid ID");
+//   }
+// });
+
+// //Insert new Book
+// router.post("/", async (req, res) => {
+//   var form = new formidable.IncomingForm();
+//   form.uploadDir = __dirname + "/googleDriveAuthentication/upload/";
+//   to_uploadDir = form.uploadDir;
+//   form.parse(req, async function (err, fields, files) {
+//     console.log("FIELD: ", fields);
+//     let file;
+//     try {
+//       file = await uploadFilePromise(files, to_uploadDir);
+//     } catch (err) {
+//       console.log(err);
+//     }
+//     try {
+//       let book = new Books();
+//       book.title = fields.title;
+//       book.description = fields.description;
+//       book.price = fields.price;
+//       book.author = fields.author;
+//       book.isbn = fields.isbn;
+//       book.category = fields.category;
+//       book.file = file;
+//       await book.save();
+//       console.log("Book", book);
+//       res.status(200).send(book);
+//     } catch (error) {
+//       console.log(err);
+//     }
+//   });
+// });
+
+// //Update book
+// router.put("/:id", async (req, res) => {
+//   let book = await Books.findById(req.params.id);
+//   book.title = req.body.title;
+//   book.description = req.body.description;
+//   book.price = req.body.price;
+//   book.author = req.body.author;
+//   book.isbn = req.body.isbn;
+//   book.category = req.body.category;
+//   await book.save();
+//   return res.send(book);
+// });
+
+// //Delete a book
+// router.delete("/:id", async (req, res) => {
+//   let book = await Books.findByIdAndDelete(req.params.id);
+//   res.send(book);
+// });

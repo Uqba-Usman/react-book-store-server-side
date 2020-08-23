@@ -33,7 +33,7 @@ const DownloadBook = () => {
       .downloadBook(data)
       .then((res) => {
         console.log("Book Download", res);
-        fileDownload(res, "Book.jpg");
+        fileDownload(res, "Book.pdf");
       })
       .catch((err) => console.log(err));
   };
