@@ -50,7 +50,7 @@ const NewBook = (props) => {
       category: Joi.string().required().messages({
         "string.empty": "category is not allowed to be empty",
       }),
-      price: Joi.string().required().messages({
+      price: Joi.number().required().messages({
         "string.empty": "Price is not allowed to be empty",
       }),
       isbn: Joi.string().required().messages({
