@@ -64,7 +64,8 @@ const Blogs = () => {
       filtered = books.filter(
         (b) =>
           b.title.toLowerCase().startsWith(sQ.toLowerCase()) ||
-          b.author.toLowerCase().startsWith(sQ.toLowerCase())
+          b.author.toLowerCase().startsWith(sQ.toLowerCase()) ||
+          b.isbn.toLowerCase().startsWith(sQ.toLowerCase())
       );
     }
     console.log("FILTERED", filtered);
@@ -158,13 +159,16 @@ const Blogs = () => {
                     hendrerit laoreet.{" "}
                   </p>
                   <div class="align-center">
-                    <a class="btn btn-xs btn-slide btn-light" href="#">
+                    <a
+                      class="btn btn-xs btn-slide btn-light"
+                      href="https://www.facebook.com/profile.php?id=100008788505872"
+                    >
                       <i class="fab fa-facebook-f"></i>
                       <span>Facebook</span>
                     </a>
                     <a
                       class="btn btn-xs btn-slide btn-light"
-                      href="#"
+                      href="https://twitter.com/UsmanUqba?s=09"
                       data-width="100"
                     >
                       <i class="fab fa-twitter"></i>
@@ -172,7 +176,7 @@ const Blogs = () => {
                     </a>
                     <a
                       class="btn btn-xs btn-slide btn-light"
-                      href="#"
+                      href="https://www.instagram.com/uqbausman/?hl=en"
                       data-width="118"
                     >
                       <i class="fab fa-instagram"></i>
@@ -180,7 +184,7 @@ const Blogs = () => {
                     </a>
                     <a
                       class="btn btn-xs btn-slide btn-light"
-                      href="mailto:#"
+                      href="mailto:muqbausman@gmail.com"
                       data-width="80"
                     >
                       <i class="far fa-envelope"></i>
@@ -209,7 +213,7 @@ const Blogs = () => {
                     </a>
                     <a
                       class="btn btn-xs btn-slide btn-light"
-                      href="#"
+                      href="//#region "
                       data-width="100"
                     >
                       <i class="fab fa-twitter"></i>
