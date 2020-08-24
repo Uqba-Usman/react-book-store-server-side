@@ -48,30 +48,7 @@ function App() {
       <Router>
         <ToastContainer />
         <Appbar />
-        {/* <section
-          id="page-title"
-          class="text-light"
-          data-bg-parallax="polo/images/parallax/6.jpg"
-        >
-          <div class="container">
-            <div class="page-title">
-              <h1>Portfolio Grid</h1>
-            </div>
-            <div class="breadcrumb">
-              <ul>
-                <li>
-                  <a href="#">Home</a>
-                </li>
-                <li>
-                  <a href="#">Portfolio</a>
-                </li>
-                <li class="active">
-                  <a href="#">Three Columns</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section> */}
+
 
         <Switch>
           {userService.isAdmin() && (

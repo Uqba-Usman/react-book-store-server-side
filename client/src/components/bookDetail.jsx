@@ -89,7 +89,7 @@ const BookDetail = (props) => {
                       data-lightbox="image"
                       title="Shop product image!"
                     >
-                      <img src="/polo/images/shop/products/1.jpg" />
+                      <img src="/polo/images/1.jpg" />
                     </Link>
                   </div>
                 </div>
@@ -117,14 +117,21 @@ const BookDetail = (props) => {
                     <div className="seperator m-b-10"></div>
                     <p>{book.description}</p>
                     <div className="product-meta">
-                      <p>{book.author}</p>
+                      <p>
+                        Edition: <b>{book.edition}</b>
+                      </p>
+                      <p>
+                        Author: <b>{book.author}</b>
+                      </p>
+                      <p>
+                        Publisher: <b>{book.publisher}</b>
+                      </p>
                     </div>
                     <div className="seperator m-t-20 m-b-10"></div>
                   </div>
                   <div className="row">
                     <div className="col-lg-8"></div>
                     <div className="col-lg-4">
-                      <h6>Add to Cart</h6>
                       <Link className="btn" to="/cart" onClick={handleCart}>
                         Add to cart
                       </Link>

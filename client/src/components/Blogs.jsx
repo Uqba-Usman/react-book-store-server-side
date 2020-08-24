@@ -61,8 +61,10 @@ const Blogs = () => {
     console.log("GET APGE DTA", cd);
     let filtered = cd;
     if (sQ) {
-      filtered = books.filter((b) =>
-        b.title.toLowerCase().startsWith(sQ.toLowerCase())
+      filtered = books.filter(
+        (b) =>
+          b.title.toLowerCase().startsWith(sQ.toLowerCase()) ||
+          b.author.toLowerCase().startsWith(sQ.toLowerCase())
       );
     }
     console.log("FILTERED", filtered);
@@ -83,11 +85,6 @@ const Blogs = () => {
         getPageData(res, currentPage, pageSize, searchQuery);
       })
       .catch((err) => console.log(err));
-
-    // axios
-    //   .get("localhost:4500/api/books")
-    //   .then((result) => setBooks(result))
-    //   .catch((error) => console.log(error));
   }, []);
 
   const handlePageChange = async (page) => {
@@ -118,23 +115,21 @@ const Blogs = () => {
         </div>
       </section>
       <section>
-        {/* {books.length === 0 && return <p>There is no book available</p>} */}
         <div className="container">
-          <div class="col-lg-4  center pb-5">
+          <div class="col-lg-4 center pb-5">
             <SearchBox value={searchQuery} onChange={handleSearch} />
           </div>
 
-          <div class="row">
-            {data.length === 0 ? (
-              <p>There is no book available</p>
-            ) : (
-              <div class="row">
-                {data.map((book, index) => (
-                  <SingleBook key={index} book={book} />
-                ))}
-              </div>
-            )}
-          </div>
+          {data.length === 0 ? (
+            <p>There is no book available</p>
+          ) : (
+            <div class="row">
+              {data.map((book, index) => (
+                <SingleBook key={index} book={book} />
+              ))}
+            </div>
+          )}
+
           <Pagination
             itemsCount={totalCount}
             pageSize={pageSize}
