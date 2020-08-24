@@ -50,6 +50,7 @@ const Stripe = ({ amount, buttonDisabled }) => {
             const bookRes = await downloadService.downloadBook(data);
             console.log("Book Download", bookRes);
             fileDownload(res, "Book.pdf");
+            window.location.href = "/";
           } catch (error) {
             console.log("Download Error", error);
           }
