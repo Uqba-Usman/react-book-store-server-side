@@ -30,25 +30,11 @@ import AdminMain from "./components/adminTable/adminMain";
 import UserFavourites from "./components/userFavourites";
 
 function App() {
-  // const [products, setProducts] = React.useState([]);
-  // React.useEffect(() => {
-  //   axios
-  //     .get("/api/products")
-  //     .then((res) => setProducts(res.data))
-  //     .catch((err) => console.log(err));
-  // }, []);
-
   return (
     <div className="App">
-      {/* <ul>
-        {products.map((p, index) => (
-          <li key={index}>{p}</li>
-        ))}
-      </ul> */}
       <Router>
         <ToastContainer />
         <Appbar />
-
 
         <Switch>
           {userService.isAdmin() && (
