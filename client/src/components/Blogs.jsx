@@ -146,7 +146,7 @@ const Blogs = () => {
             <p>A true story, that never been told!</p>
           </div>
           <div class="row team-members team-members-circle m-b-40">
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <div class="team-member">
                 <div class="team-image">
                   <img src="polo/images/uqba.jpg" />
@@ -194,7 +194,7 @@ const Blogs = () => {
                 </div>
               </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <div class="team-member">
                 <div class="team-image">
                   <img src="polo/images/umar.jpg" />
@@ -239,58 +239,13 @@ const Blogs = () => {
                 </div>
               </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <div class="team-member">
                 <div class="team-image">
                   <img src="polo/images/talha.jpeg" />
                 </div>
                 <div class="team-desc">
                   <h3>Talha Ahmed</h3>
-                  <span>Software Developer</span>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing tristique
-                    hendrerit laoreet.{" "}
-                  </p>
-                  <div class="align-center">
-                    <a class="btn btn-xs btn-slide btn-light" href="#">
-                      <i class="fab fa-facebook-f"></i>
-                      <span>Facebook</span>
-                    </a>
-                    <a
-                      class="btn btn-xs btn-slide btn-light"
-                      href="#"
-                      data-width="100"
-                    >
-                      <i class="fab fa-twitter"></i>
-                      <span>Twitter</span>
-                    </a>
-                    <a
-                      class="btn btn-xs btn-slide btn-light"
-                      href="#"
-                      data-width="118"
-                    >
-                      <i class="fab fa-instagram"></i>
-                      <span>Instagram</span>
-                    </a>
-                    <a
-                      class="btn btn-xs btn-slide btn-light"
-                      href="mailto:#"
-                      data-width="80"
-                    >
-                      <i class="far fa-envelope"></i>
-                      <span>Mail</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="team-member">
-                <div class="team-image">
-                  <img src="polo/images/tahir.jpg" />
-                </div>
-                <div class="team-desc">
-                  <h3>Tahir Tariq</h3>
                   <span>Software Developer</span>
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing tristique

@@ -1,0 +1,15 @@
+UserInterest
+country
+Edition
+publisher
+sub category
+Different author detail
+
+Log
+time in or out
+url clicks
+history
+ip
+email
+
+
