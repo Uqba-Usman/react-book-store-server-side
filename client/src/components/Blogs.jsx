@@ -106,7 +106,7 @@ const Blogs = () => {
       <section
         id="page-title"
         class="text-light"
-        data-bg-parallax="polo/images/e.jpg"
+        data-bg-parallax="polo/images/g.jpg"
       >
         <div class="container">
           <div class="page-title">
