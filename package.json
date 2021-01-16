@@ -28,7 +28,7 @@
     "pug": "2.0.0-beta11",
     "stripe": "^8.75.0",
     "universal-cookie": "^4.0.3",
-    "uuid": "^8.2.0",
+    "uuid": "^8.3.2",
     "uuidv4": "^6.2.0"
   }
 }
