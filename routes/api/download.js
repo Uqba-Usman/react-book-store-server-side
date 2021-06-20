@@ -60,7 +60,7 @@ router.post("/book", async (req, res) => {
           console.log("FILEPATH", filePath);
           const result = await res.download(filePath);
 
-          console.log("RESULT", resu);
+          console.log("RESULT", result);
         })
         .catch((error) => {
           console.log("EROR", error);
